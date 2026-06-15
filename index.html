@@ -1,0 +1,622 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>糖尿病患者骨質疏鬆照護共識</title>
+  <style>
+    :root {
+      --bg-primary: #ffffff;
+      --text-primary: #111827;
+      --text-secondary: #64748b;
+      --accent: #2563eb;
+      --accent-dim: rgba(37, 99, 235, 0.10);
+      --surface: #f8fafc;
+      --border: #dbe3ef;
+      --on-accent: #ffffff;
+      --code-bg: #101828;
+      --code-text: #f8fafc;
+      --warn: #d9480f;
+      --good: #0e9f6e;
+      --font-title: -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      --font-body: -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      --slide-padding: clamp(2rem, 6vw, 5rem);
+      --content-gap: clamp(1rem, 2.4vw, 2rem);
+      --shadow: 0 18px 48px rgba(15, 23, 42, 0.10);
+    }
+
+    body.style-lab {
+      --bg-primary: #f7fbff;
+      --text-primary: #102033;
+      --text-secondary: #53657a;
+      --accent: #0891b2;
+      --accent-dim: rgba(8, 145, 178, 0.12);
+      --surface: #ffffff;
+      --border: #cde4ee;
+      --on-accent: #ffffff;
+      --font-title: Inter, -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      --font-body: Inter, -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { height: 100%; }
+    body {
+      height: 100%;
+      margin: 0;
+      font-family: var(--font-body);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      overflow: hidden;
+    }
+
+    .deck {
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+    }
+    .deck::-webkit-scrollbar { display: none; }
+
+    body.layout-horizontal .deck {
+      display: flex;
+      flex-direction: row;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+    }
+    body.layout-vertical .deck {
+      display: block;
+      overflow-x: hidden;
+      overflow-y: auto;
+      scroll-snap-type: y mandatory;
+    }
+
+    .slide {
+      flex: 0 0 100vw;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      scroll-snap-align: start;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      padding: var(--slide-padding);
+      background: var(--bg-primary);
+    }
+    .slide-inner {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      display: grid;
+      gap: var(--content-gap);
+    }
+
+    h1, h2, h3, p, ul, ol, blockquote { margin: 0; }
+    h1, h2, h3 { font-family: var(--font-title); letter-spacing: 0; }
+    h1 {
+      max-width: 14ch;
+      font-size: clamp(3rem, 6.4vw, 5.6rem);
+      line-height: 1.02;
+    }
+    h2 {
+      max-width: 20ch;
+      font-size: clamp(2.1rem, 4.4vw, 3.6rem);
+      line-height: 1.08;
+    }
+    h3 {
+      font-size: clamp(1.25rem, 2.2vw, 1.7rem);
+      line-height: 1.18;
+    }
+    p, li {
+      font-size: clamp(1.02rem, 1.5vw, 1.3rem);
+      line-height: 1.45;
+      color: var(--text-secondary);
+    }
+
+    .eyebrow {
+      font-size: clamp(.85rem, 1.1vw, 1rem);
+      line-height: 1.2;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .lead { max-width: 46ch; color: var(--text-secondary); }
+    .accent { color: var(--accent); }
+    .src { font-size: .82rem; color: var(--text-secondary); opacity: .8; }
+    .t-good { color: var(--good); font-weight: 800; }
+    .t-bad { color: var(--warn); font-weight: 800; }
+    .t-neutral { color: var(--text-secondary); font-weight: 800; }
+
+    .cols {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: clamp(1.5rem, 4vw, 3.5rem);
+      align-items: center;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(.8rem, 1.8vw, 1.2rem);
+    }
+    .grid.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+    .card, .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; box-shadow: var(--shadow); }
+    .card, .panel { padding: clamp(1rem, 2vw, 1.6rem); }
+    .card { display: grid; gap: .5rem; align-content: start; }
+    .card ul, .panel ul { margin: 0; padding-left: 1.1rem; display: grid; gap: .3rem; }
+
+    .card .num, .agenda-num {
+      width: 2.6rem; height: 2.6rem;
+      display: grid; place-items: center;
+      border-radius: 50%;
+      background: var(--accent); color: var(--on-accent);
+      font-weight: 800; font-size: 1.05rem;
+    }
+
+    .agenda-list { display: grid; gap: .7rem; max-width: 920px; }
+    .agenda-item {
+      display: grid; grid-template-columns: auto 1fr; align-items: center;
+      gap: 1rem; padding: .8rem 1rem; border: 1px solid var(--border);
+      border-radius: 8px; background: var(--surface);
+    }
+    .agenda-item h3 { font-size: 1.2rem; }
+    .agenda-item p { font-size: 1rem; }
+
+    .task-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(1rem, 2.2vw, 1.8rem); align-items: stretch; }
+
+    .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .compare-grid .panel { display: grid; gap: .6rem; align-content: start; }
+
+    .stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+    .stat-card {
+      padding: clamp(1.1rem, 2.2vw, 1.8rem);
+      border-left: 4px solid var(--accent);
+      background: var(--surface); border-radius: 8px; box-shadow: var(--shadow);
+    }
+    .stat-num { display: block; font-size: clamp(3rem, 6.5vw, 5rem); line-height: .9; font-weight: 800; color: var(--accent); }
+    .stat-card h3 { margin-top: .4rem; }
+    .stat-card p { font-size: .95rem; }
+
+    .comparison-table { display: grid; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: var(--surface); box-shadow: var(--shadow); }
+    .comparison-row { display: grid; grid-template-columns: 1.2fr 1fr 1fr; }
+    .comparison-row > * { padding: .7rem .9rem; border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); font-size: 1rem; display: flex; align-items: center; }
+    .comparison-row > *:last-child { border-right: 0; }
+    .comparison-row:last-child > * { border-bottom: 0; }
+    .comparison-head { font-weight: 800; color: var(--text-primary); }
+    .comparison-head > * { color: var(--text-primary); }
+    .winner { background: var(--accent-dim); }
+
+    /* 三欄藥物表：只調整每一列的欄寬，容器維持單欄堆疊 */
+    .drug-table .comparison-row { grid-template-columns: 1.4fr 1.1fr 1.5fr; }
+    .pill { display: inline-block; padding: .16rem .65rem; border-radius: 999px; font-weight: 800; font-size: .92rem; white-space: nowrap; }
+    .pill.good { background: rgba(14, 159, 110, .15); color: #0b7a52; }
+    .pill.neutral { background: rgba(100, 116, 139, .16); color: #475569; }
+    .pill.bad { background: rgba(217, 72, 15, .14); color: #b5440f; }
+    .cell-note { color: var(--text-secondary); font-size: .9rem; margin-left: .45rem; }
+    .legend { display: flex; gap: 1.1rem; flex-wrap: wrap; align-items: center; }
+    .legend span { display: inline-flex; align-items: center; gap: .4rem; font-size: .9rem; color: var(--text-secondary); }
+    .legend i { width: .8rem; height: .8rem; border-radius: 50%; display: inline-block; }
+
+    /* 機轉流程 */
+    .flow { display: grid; gap: .45rem; }
+    .flow-step { padding: .7rem 1rem; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); font-weight: 700; color: var(--text-primary); font-size: 1.02rem; box-shadow: var(--shadow); }
+    .flow-step span { display: block; font-weight: 400; font-size: .9rem; color: var(--text-secondary); }
+    .flow-arrow { text-align: center; color: var(--accent); font-weight: 800; line-height: 1; }
+    .flow-step.is-end { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+    .flow-step.is-end span { color: rgba(255,255,255,.85); }
+
+    /* 警示框 */
+    .alert {
+      border: 1px solid color-mix(in srgb, var(--warn) 35%, var(--border));
+      border-left: 4px solid var(--warn);
+      background: color-mix(in srgb, var(--warn) 7%, var(--surface));
+      border-radius: 8px; padding: .85rem 1.1rem; box-shadow: var(--shadow);
+    }
+    .alert strong { color: var(--warn); }
+    .alert p { color: var(--text-primary); font-size: 1rem; }
+    .card.is-warn { border-left: 4px solid var(--warn); }
+    .card.is-warn h3 { color: var(--warn); }
+
+    /* GRADE 徽章 */
+    .badge {
+      display: inline-grid; place-items: center; min-width: 1.5rem;
+      padding: .05rem .45rem; border-radius: 999px;
+      background: var(--accent); color: var(--on-accent);
+      font-weight: 800; font-size: .8rem; vertical-align: middle;
+    }
+    .badge.b { background: #2563eb; }
+    .badge.c { background: #94a3b8; }
+    .card.group h3 { display: flex; align-items: center; gap: .5rem; }
+    .card.group li { font-size: .95rem; }
+
+    /* 第一型 vs 第二型 對照側寫卡 */
+    .essence { font-weight: 800; font-size: clamp(1.05rem, 1.6vw, 1.3rem); color: var(--accent); }
+    .panel.flag { border-color: color-mix(in srgb, var(--warn) 40%, var(--border)); border-left: 4px solid var(--warn); }
+    .panel.flag .essence { color: var(--warn); }
+    .panel.pick { border-color: color-mix(in srgb, var(--accent) 45%, var(--border)); border-left: 4px solid var(--accent); }
+    .kv { display: grid; grid-template-columns: 5.5rem 1fr; gap: .55rem .9rem; margin: 0; }
+    .kv dt { color: var(--text-secondary); font-weight: 700; font-size: .98rem; }
+    .kv dd { margin: 0; color: var(--text-primary); font-size: 1.02rem; line-height: 1.4; }
+
+    .checklist { display: grid; gap: .5rem; }
+    .checklist .row { display: grid; grid-template-columns: auto 1fr; gap: .6rem; align-items: start; font-size: 1rem; color: var(--text-primary); }
+    .checklist .tick { color: var(--accent); font-weight: 800; }
+
+    .take-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .take-grid .card { border-top: 4px solid var(--accent); }
+
+    .progress { position: fixed; top: 0; left: 0; width: var(--progress, 0%); height: 4px; background: var(--accent); z-index: 20; transition: width .25s ease; }
+
+    .nav-dots { position: fixed; right: 1rem; top: 50%; transform: translateY(-50%); display: grid; gap: .5rem; z-index: 20; }
+    .nav-dots button { width: .55rem; height: .55rem; border: 0; border-radius: 50%; padding: 0; background: var(--text-secondary); opacity: .35; cursor: pointer; }
+    .nav-dots button.active { background: var(--accent); opacity: 1; }
+
+    .page-num { position: fixed; left: 1.2rem; bottom: 1rem; font-size: .82rem; color: var(--text-secondary); opacity: .7; z-index: 20; }
+
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s cubic-bezier(.16,1,.3,1), transform .6s cubic-bezier(.16,1,.3,1), filter .6s ease; }
+    .reveal.from-left { transform: translateX(-22px); }
+    .reveal.from-right { transform: translateX(22px); }
+    .reveal.from-blur { transform: none; filter: blur(8px); }
+    .slide.visible .reveal { opacity: 1; transform: none; filter: none; }
+    .stagger > * { opacity: 0; transform: translateY(14px); transition: opacity .55s cubic-bezier(.16,1,.3,1), transform .55s cubic-bezier(.16,1,.3,1); }
+    .slide.visible .stagger > * { opacity: 1; transform: none; }
+    .slide.visible .stagger > *:nth-child(1) { transition-delay: .05s; }
+    .slide.visible .stagger > *:nth-child(2) { transition-delay: .12s; }
+    .slide.visible .stagger > *:nth-child(3) { transition-delay: .19s; }
+    .slide.visible .stagger > *:nth-child(4) { transition-delay: .26s; }
+    .slide.visible .stagger > *:nth-child(5) { transition-delay: .33s; }
+    .slide.visible .stagger > *:nth-child(6) { transition-delay: .40s; }
+
+    @media (max-width: 860px) {
+      .cols, .task-grid, .compare-grid, .stats, .comparison-row, .grid, .grid.cols-2, .take-grid { grid-template-columns: 1fr; }
+      .drug-table .comparison-row { grid-template-columns: 1fr; }
+      .nav-dots { display: none; }
+    }
+    @media (max-height: 680px) {
+      :root { --slide-padding: clamp(1rem, 4vw, 2.4rem); }
+      .nav-dots { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+      .reveal, .stagger > * { opacity: 1; transform: none; filter: none; }
+    }
+  </style>
+</head>
+<body class="style-lab layout-horizontal">
+  <div class="progress" aria-hidden="true"></div>
+
+  <main class="deck">
+
+  <!-- 1. Cover -->
+  <section class="slide cover">
+    <div class="slide-inner">
+      <p class="eyebrow reveal">共識指引 · 初版 2026.03</p>
+      <h1 class="reveal from-blur">糖尿病患者<br><span class="accent">骨質疏鬆照護共識</span></h1>
+      <p class="lead reveal">糖尿病衛教學會 × 骨質疏鬆症學會 × 內分泌學會：把骨骼健康納入糖尿病的常規照護。</p>
+    </div>
+  </section>
+
+  <!-- 2. Agenda -->
+  <section class="slide">
+    <div class="slide-inner">
+      <p class="eyebrow reveal">Agenda</p>
+      <h2 class="reveal">今天的五條路徑</h2>
+      <div class="agenda-list stagger">
+        <div class="agenda-item"><span class="agenda-num">01</span><div><h3>為何重要</h3><p>糖尿病讓骨折風險顯著上升。</p></div></div>
+        <div class="agenda-item"><span class="agenda-num">02</span><div><h3>機轉與 T1／T2 差異</h3><p>不是骨密度低，是骨品質差。</p></div></div>
+        <div class="agenda-item"><span class="agenda-num">03</span><div><h3>篩檢與診斷</h3><p>誰該做 DXA、FRAX 為何會低估。</p></div></div>
+        <div class="agenda-item"><span class="agenda-num">04</span><div><h3>治療</h3><p>非藥物地基 + 藥物選擇與接續療法。</p></div></div>
+        <div class="agenda-item"><span class="agenda-num">05</span><div><h3>血糖藥與照護體系</h3><p>選藥避雷 + 多專科整合。</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Stat -->
+  <section class="slide">
+    <div class="slide-inner">
+      <p class="eyebrow reveal">為何重要 · 流行病學</p>
+      <h2 class="reveal">糖尿病讓骨折風險更高</h2>
+      <div class="stats stagger">
+        <div class="stat-card"><span class="stat-num">7×</span><h3>T1DM 髖部骨折</h3><p>風險可增加至 7 倍；T2DM 任一部位 ↑ 1.7 倍。</p></div>
+        <div class="stat-card"><span class="stat-num">34.2</span><h3>台灣 T2DM 骨鬆／千人年</h3><p>高於非糖尿病族群的 20.6。</p></div>
+        <div class="stat-card"><span class="stat-num">31<small>%</small></span><h3>曾接受骨骼評估</h3><p>多數糖尿病患從未被評估骨骼健康。</p></div>
+      </div>
+      <p class="src reveal">資料來源：共識聲明 p.2、p.5、p.19</p>
+    </div>
+  </section>
+
+  <!-- 4. Two-column 機轉 -->
+  <section class="slide">
+    <div class="slide-inner cols">
+      <div class="reveal from-left">
+        <p class="eyebrow">機轉</p>
+        <h2>糖尿病為何傷骨</h2>
+        <ul style="margin:1rem 0 0;padding-left:1.2rem;display:grid;gap:.6rem;">
+          <li>胰島素 ↓ → 成骨細胞活性下降、骨形成減少</li>
+          <li>慢性高血糖 + AGE 堆積 → 膠原蛋白與骨基質受損、骨強度下降</li>
+          <li>併發症加成：周邊神經病變、視網膜病變、低血糖 → 跌倒風險上升</li>
+        </ul>
+      </div>
+      <div class="flow reveal from-right">
+        <div class="flow-step">高血糖 + AGE 堆積<span>胰島素作用不足</span></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step">骨品質下降 + 跌倒風險上升<span>骨密度未必能反映</span></div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step is-end">脆弱性骨折<span>髖部、脊椎為主</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Comparison T1 vs T2 -->
+  <section class="slide">
+    <div class="slide-inner">
+      <p class="eyebrow reveal">機轉差異</p>
+      <h2 class="reveal">兩型糖尿病，骨骼差很大</h2>
+      <div class="compare-grid reveal">
+        <div class="panel">
+          <h3>第一型 T1DM</h3>
+          <p class="essence">骨密度低 → 風險「看得見」</p>
+          <dl class="kv">
+            <dt>骨密度</dt><dd>偏低 <span class="t-bad">↓</span></dd>
+            <dt>骨品質</dt><dd>差（年輕即缺胰島素，骨量累積不足）</dd>
+            <dt>骨折風險</dt><dd>髖部 <span class="t-bad">↑ 至 7 倍</span></dd>
+          </dl>
+        </div>
+        <div class="panel flag">
+          <h3>第二型 T2DM</h3>
+          <p class="essence">⚠️ 骨密度正常 → 風險「被低估」</p>
+          <dl class="kv">
+            <dt>骨密度</dt><dd>正常或偏高（看似安全）</dd>
+            <dt>骨品質</dt><dd>差（AGE 堆積，骨微結構受損）</dd>
+            <dt>骨折風險</dt><dd>任一部位 <span class="t-bad">↑ 1.2–1.7 倍</span></dd>
+          </dl>
+        </div>
+      </div>
+      <div class="alert reveal">
+        <p><strong>關鍵差異：</strong>T1DM 用 BMD 就抓得到風險；T2DM「BMD 正常 ≠ 安心」，FRAX 還會低估 → 必須加上 TBS／VFA 才看得準。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Process 篩檢 -->
+  <section class="slide">
+    <div class="slide-inner">
+      <p class="eyebrow reveal">篩檢與診斷</p>
+      <h2 class="reveal">誰該做 DXA？</h2>
+      <div class="task-grid">
+        <div class="panel reveal from-left" style="display:grid;gap:.9rem;align-content:start;">
+          <h3>啟動時機</h3>
+          <div class="checklist">
+            <div class="row"><span class="tick">≥65</span><div><strong style="color:var(--text-primary)">所有糖尿病患</strong>：≥ 65 歲均建議 DXA。</div></div>
+            <div class="row"><span class="tick">50+</span><div><strong style="color:var(--text-primary)">提早篩</strong>：停經後女性、≥ 50 歲男性，合併任一風險因子。</div></div>
+          </div>
+          <p class="src">輔助工具：OSTAi／MOSTAi 自我評估表可先分流。</p>
+        </div>
+        <div class="panel reveal from-right" style="align-content:start;">
+          <h3>糖尿病高風險因子（任一）</h3>
+          <ul style="margin:.5rem 0 0;padding-left:1.1rem;display:grid;gap:.3rem;">
+            <li>糖尿病史 &gt; 10 年、HbA1c &gt; 8%</li>
+            <li>頻繁低血糖、頻繁跌倒</li>
+            <li>周邊神經／視網膜／腎臟病變</li>
+            <li>用藥：胰島素、TZD、sulfonylureas</li>
+            <li>長期類固醇（prednisone &gt; 2.5 mg/日 ≥ 3 個月）</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Feature Grid 診斷工具 -->
+  <section class="slide">
+    <div class="slide-inner">
+      <p class="eyebrow reveal">診斷與風險評估</p>
+      <h2 class="reveal">五項工具，補上 BMD 的盲點</h2>
+      <div class="grid stagger">
+        <div class="card"><h3>DXA</h3><p>骨鬆診斷黃金標準：T 值 ≤ -2.5。</p></div>
+        <div class="card is-warn"><h3>⚠️ FRAX 陷阱</h3><p>會「低估」糖尿病骨折風險。T2DM 可校正：T 值下調 0.5、年齡 +10，或以 RA 代入。</p></div>
+        <div class="card"><h3>TBS 骨小樑指數</h3><p>反映腰椎骨微結構，納入後比單用 BMD 更準（&gt; 1.31 正常）。</p></div>
+        <div class="card"><h3>VFA 側面脊椎影像</h3><p>揪出常無症狀的脊椎骨折，影響風險分級與起始治療。</p></div>
+        <div class="card"><h3>BTM 骨代謝標記</h3><p>治療後 3–6 個月追蹤反應；不適合單獨當風險預測。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Two-column 非藥物 -->
+  <section class="slide">
+    <div class="slide-inner cols">
+      <div class="reveal from-left">
+        <p class="eyebrow">治療 · 基礎</p>
+        <h2>非藥物治療是地基</h2>
+        <p class="lead">所有骨鬆病人都要做；也是骨骼與血糖能一起照顧的切入點。</p>
+      </div>
+      <div class="panel reveal from-right" style="align-content:start;">
+        <div class="checklist">
+          <div class="row"><span class="tick">營養</span><div>鈣 1200 mg/日、維生素 D 800 IU/日（高風險 25(OH)D ≥ 30 ng/mL）；蛋白質 ≥ 1.0–1.2 g/kg。</div></div>
+          <div class="row"><span class="tick">飲食</span><div>可採地中海飲食，兼顧骨骼與血糖控制。</div></div>
+          <div class="row"><span class="tick">運動</span><div>負重 + 阻力 + 平衡訓練；高風險改低衝擊運動。</div></div>
+          <div class="row"><span class="tick">防跌</span><div>居家移除障礙、浴室安全設施、必要時輔具；戒菸限酒。</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. Comparison 藥物 -->
+  <section class="slide">
+    <div class="slide-inner">
+      <p class="eyebrow reveal">治療 · 藥物</p>
+      <h2 class="reveal">抗骨吸收 vs 促骨生成</h2>
+      <div class="compare-grid reveal">
+        <div class="panel">
+          <h3>抗骨吸收藥物</h3>
+          <p class="essence">一般高風險的「一線」</p>
+          <dl class="kv">
+            <dt>機轉</dt><dd>抑制破骨細胞、減少骨流失</dd>
+            <dt>代表藥</dt><dd>SERM、雙磷酸鹽、denosumab</dd>
+            <dt>用在誰</dt><dd>多數高風險病人；糖尿病療效與一般人相當</dd>
+          </dl>
+        </div>
+        <div class="panel pick">
+          <h3>促骨生成劑</h3>
+          <p class="essence">極高風險「優先起始」</p>
+          <dl class="kv">
+            <dt>機轉</dt><dd>促進骨形成、改善骨微結構</dd>
+            <dt>代表藥</dt><dd>teriparatide、abaloparatide、romosozumab</dd>
+            <dt>用在誰</dt><dd>極高風險、需快速重建骨骼者</dd>
+          </dl>
+        </div>
+      </div>
+      <div class="alert reveal">
+        <p><strong>極高風險（任一）→ 先促骨生成、再接續抗吸收：</strong>12 個月內脆弱性骨折、多發骨折、T ≤ -3.0、FRAX 髖部 &gt; 4.5%／主要 &gt; 30%。　<strong>⚠️ romosozumab</strong>：心血管高風險或前一年心梗／中風者不建議。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. Stat 健保 -->
+  <section class="slide">
+    <div class="slide-inner">
+      <p class="eyebrow reveal">實務重點 · 健保給付</p>
+      <h2 class="reveal">2025／3 起健保擴大給付</h2>
+      <div class="grid stagger">
+        <div class="card"><h3>藥物範圍擴大</h3><p>denosumab 與部分 alendronate 70 mg 給付範圍放寬。</p></div>
+        <div class="card"><h3>新增骨折部位</h3><p>納入遠端橈骨骨折與近端肱骨骨折。</p></div>
+        <div class="card"><h3>納入未骨折高風險</h3><p>含尚未骨折但高風險者，如接受胰島素治療的糖尿病人。</p></div>
+      </div>
+      <p class="src reveal">政策方向反映「糖尿病 = 骨折高風險」，強化高風險族群的骨鬆管理。</p>
+    </div>
+  </section>
+
+  <!-- 11. Chart/Table 降糖藥 -->
+  <section class="slide">
+    <div class="slide-inner">
+      <p class="eyebrow reveal">血糖治療之考量 · 表三</p>
+      <h2 class="reveal">降血糖藥對骨骼的影響</h2>
+      <div class="comparison-table drug-table reveal">
+        <div class="comparison-row comparison-head"><span>藥物分類</span><span>骨密度</span><span>骨折風險</span></div>
+        <div class="comparison-row"><span>Metformin</span><span><span class="pill neutral">中性偏升</span></span><span><span class="pill good">中性偏益</span></span></div>
+        <div class="comparison-row"><span>DPP-4 抑制劑</span><span><span class="pill neutral">中性偏升</span></span><span><span class="pill good">中性偏益</span></span></div>
+        <div class="comparison-row"><span>GLP-1 受體促效劑</span><span><span class="pill neutral">中性偏升</span></span><span><span class="pill good">中性偏益</span></span></div>
+        <div class="comparison-row"><span>SGLT2 抑制劑</span><span><span class="pill neutral">中性</span></span><span><span class="pill neutral">中性</span></span></div>
+        <div class="comparison-row"><span>Sulfonylureas</span><span><span class="pill neutral">中性</span></span><span><span class="pill bad">升高</span><span class="cell-note">低血糖→跌倒</span></span></div>
+        <div class="comparison-row"><span>Thiazolidinediones</span><span><span class="pill bad">下降</span></span><span><span class="pill bad">升高</span><span class="cell-note">OR 2.23</span></span></div>
+        <div class="comparison-row"><span>胰島素</span><span><span class="pill neutral">中性偏降</span></span><span><span class="pill bad">升高</span><span class="cell-note">跌倒相關</span></span></div>
+      </div>
+      <div class="legend reveal" style="margin-top:.2rem;">
+        <span><i style="background:#0b7a52"></i>偏有益</span>
+        <span><i style="background:#64748b"></i>中性</span>
+        <span><i style="background:#b5440f"></i>升高（要小心）</span>
+        <span class="src" style="margin-left:auto;">選藥原則：骨鬆高風險病人 <strong style="color:var(--warn)">避開 TZD、慎用 SU</strong></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12. Feature Grid 16條 -->
+  <section class="slide">
+    <div class="slide-inner">
+      <p class="eyebrow reveal">共識聲明速覽</p>
+      <h2 class="reveal">16 條共識，四個面向</h2>
+      <div class="grid cols-2 stagger">
+        <div class="card group"><h3>風險</h3><ul><li>糖尿病增加骨鬆與骨折風險 <span class="badge">A</span></li></ul></div>
+        <div class="card group"><h3>篩檢與診斷</h3><ul><li>DXA 黃金標準 <span class="badge">A</span>；T1／T2 骨密度差異 <span class="badge b">B</span></li><li>FRAX 校正 + TBS、VFA、BTM 短期監測 <span class="badge b">B</span></li></ul></div>
+        <div class="card group"><h3>治療</h3><ul><li>生活型態調整、依指引起始 <span class="badge b">B</span></li><li>抗吸收選藥 <span class="badge">A</span>；極高風險優先促骨生成 <span class="badge">A</span>；接續療法 <span class="badge b">B</span></li></ul></div>
+        <div class="card group"><h3>血糖與照護體系</h3><ul><li>血糖目標個別化、慎選降糖藥 <span class="badge b">B</span></li><li>多專科照護 <span class="badge b">B</span>；納入 DSME 衛教、骨鬆篩檢列常規 <span class="badge c">C</span></li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13. Closing -->
+  <section class="slide closing">
+    <div class="slide-inner">
+      <p class="eyebrow reveal">Take-home</p>
+      <h2 class="reveal from-blur">把骨鬆變成糖尿病的<span class="accent">常規照護</span></h2>
+      <div class="take-grid stagger">
+        <div class="card"><h3>主動篩</h3><p>BMD 正常 ≠ 低風險，FRAX 會低估 → 加上 TBS／VFA。</p></div>
+        <div class="card"><h3>治療有序</h3><p>極高風險先用促骨生成劑、再接續抗吸收；避開 TZD、慎用 SU。</p></div>
+        <div class="card"><h3>團隊照護</h3><p>內分泌 + 骨科 + 衛教師 + 營養，把骨骼健康納入 DSME。</p></div>
+      </div>
+      <p class="src reveal">《糖尿病患者骨質疏鬆照護共識》初版 2026.03 ｜ tade.org.tw</p>
+    </div>
+  </section>
+
+  </main>
+
+  <div class="page-num" aria-hidden="true"></div>
+
+  <script>
+    class SlideDeck {
+      constructor() {
+        this.body = document.body;
+        this.initLayout();
+        this.slides = Array.from(document.querySelectorAll('.slide'));
+        this.progress = document.querySelector('.progress');
+        this.pageNum = document.querySelector('.page-num');
+        this.current = 0;
+        this.createDots();
+        this.bindKeys();
+        this.observe();
+        this.update();
+      }
+      initLayout() {
+        const param = new URLSearchParams(location.search).get('layout');
+        if (param === 'vertical' || param === 'horizontal') this.setLayout(param);
+        else if (!this.body.classList.contains('layout-vertical')) this.setLayout('horizontal');
+      }
+      setLayout(mode) {
+        this.body.classList.toggle('layout-vertical', mode === 'vertical');
+        this.body.classList.toggle('layout-horizontal', mode !== 'vertical');
+      }
+      toggleLayout() {
+        const next = this.body.classList.contains('layout-vertical') ? 'horizontal' : 'vertical';
+        this.setLayout(next);
+        requestAnimationFrame(() => this.goTo(this.current, true));
+      }
+      createDots() {
+        this.nav = document.createElement('nav');
+        this.nav.className = 'nav-dots';
+        this.nav.setAttribute('aria-label', '簡報頁面導覽');
+        this.dots = this.slides.map((_, index) => {
+          const dot = document.createElement('button');
+          dot.type = 'button';
+          dot.setAttribute('aria-label', `前往第 ${index + 1} 頁`);
+          dot.addEventListener('click', () => this.goTo(index));
+          this.nav.appendChild(dot);
+          return dot;
+        });
+        document.body.appendChild(this.nav);
+      }
+      bindKeys() {
+        document.addEventListener('keydown', (event) => {
+          if (['ArrowRight', 'ArrowDown', ' '].includes(event.key)) { event.preventDefault(); this.goTo(this.current + 1); }
+          if (['ArrowLeft', 'ArrowUp'].includes(event.key)) { event.preventDefault(); this.goTo(this.current - 1); }
+          if (event.key === 'v' || event.key === 'V') this.toggleLayout();
+        });
+      }
+      observe() {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            entry.target.classList.toggle('visible', entry.isIntersecting);
+            if (entry.isIntersecting) { this.current = this.slides.indexOf(entry.target); this.update(); }
+          });
+        }, { threshold: 0.55 });
+        this.slides.forEach((slide) => observer.observe(slide));
+      }
+      goTo(index, instant = false) {
+        if (index < 0 || index >= this.slides.length) return;
+        this.current = index;
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        this.slides[index].scrollIntoView({ behavior: (instant || reduceMotion) ? 'auto' : 'smooth', block: 'start', inline: 'start' });
+        this.update();
+      }
+      update() {
+        const pct = ((this.current + 1) / this.slides.length) * 100;
+        this.progress.style.setProperty('--progress', `${pct}%`);
+        this.dots.forEach((dot, index) => dot.classList.toggle('active', index === this.current));
+        if (this.pageNum) this.pageNum.textContent = `${this.current + 1} / ${this.slides.length}`;
+      }
+    }
+    document.addEventListener('DOMContentLoaded', () => new SlideDeck());
+  </script>
+</body>
+</html>
