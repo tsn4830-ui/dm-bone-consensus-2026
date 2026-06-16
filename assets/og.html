@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; box-sizing: border-box; }
+  html, body { width: 1200px; height: 630px; }
+  body {
+    background: #f7fbff;
+    color: #102033;
+    font-family: "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", -apple-system, sans-serif;
+    position: relative;
+    overflow: hidden;
+  }
+  .bar { position: absolute; top: 0; left: 0; right: 0; height: 10px; background: #0891b2; }
+  .wrap { display: flex; align-items: center; height: 100%; padding: 0 70px; gap: 30px; }
+  .copy { flex: 1.25; }
+  .eyebrow { color: #0891b2; font-weight: 800; letter-spacing: .1em; font-size: 24px; margin-bottom: 18px; }
+  h1 { font-size: 76px; line-height: 1.05; font-weight: 800; letter-spacing: 1px; }
+  h1 .accent { color: #0891b2; }
+  .orgs { margin-top: 26px; font-size: 25px; color: #53657a; font-weight: 600; }
+  .brand {
+    position: absolute; left: 70px; bottom: 44px;
+    font-size: 23px; font-weight: 800; color: #0891b2; opacity: .9;
+  }
+  .art { flex: .75; display: flex; justify-content: center; align-items: center; }
+  .art svg { width: 360px; height: 360px; }
+</style>
+</head>
+<body>
+  <div class="bar"></div>
+  <div class="wrap">
+    <div class="copy">
+      <div class="eyebrow">2026 三學會共識 · 13 頁圖解</div>
+      <h1>糖尿病患者<br><span class="accent">骨質疏鬆照護共識</span></h1>
+      <div class="orgs">糖尿病衛教學會 × 骨質疏鬆症學會 × 內分泌學會</div>
+    </div>
+    <div class="art">
+      <svg viewBox="0 0 360 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="180" cy="180" r="150" fill="rgba(8,145,178,.12)"/>
+        <circle cx="180" cy="180" r="150" fill="none" stroke="#0891b2" stroke-opacity=".22" stroke-width="2" stroke-dasharray="3 9"/>
+        <g fill="#0891b2">
+          <circle cx="138" cy="232" r="20"/>
+          <circle cx="118" cy="212" r="20"/>
+          <circle cx="242" cy="128" r="20"/>
+          <circle cx="222" cy="108" r="20"/>
+        </g>
+        <line x1="128" y1="222" x2="232" y2="118" stroke="#0891b2" stroke-width="30" stroke-linecap="round"/>
+        <g transform="translate(122,120)">
+          <path d="M0 -32 C 19 -8 21 7 0 23 C -21 7 -19 -8 0 -32 Z" fill="#ffffff" stroke="#0891b2" stroke-width="5" stroke-linejoin="round"/>
+          <path d="M-7 0 h14 M0 -7 v14" stroke="#0891b2" stroke-width="5" stroke-linecap="round"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+  <div class="brand">阿婷醫師的讀書筆記</div>
+</body>
+</html>
