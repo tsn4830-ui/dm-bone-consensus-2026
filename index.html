@@ -264,6 +264,19 @@
     }
     @media (max-width: 860px) { .watermark { right: 1rem; font-size: .76rem; } }
 
+    /* 扁平化向量圖示 */
+    .ico { width: 1.5rem; height: 1.5rem; stroke: currentColor; stroke-width: 1.9; fill: none; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+    .icon-badge { width: 2.7rem; height: 2.7rem; border-radius: 9px; display: grid; place-items: center; background: var(--accent-dim); color: var(--accent); }
+    .icon-badge.warn { background: color-mix(in srgb, var(--warn) 14%, transparent); color: var(--warn); }
+    .icon-inline { width: 1.5rem; height: 1.5rem; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; vertical-align: -.28em; flex: none; }
+    .agenda-item { grid-template-columns: auto 1fr auto; }
+    .agenda-item .ico { width: 1.5rem; height: 1.5rem; color: var(--accent); opacity: .55; }
+    .stat-card .ico { width: 1.6rem; height: 1.6rem; color: var(--accent); margin-bottom: .35rem; }
+    .link-row { display: flex; gap: .6rem; flex-wrap: wrap; align-items: center; }
+    .link-btn { display: inline-flex; align-items: center; gap: .4rem; padding: .42rem .9rem; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); color: var(--accent); font-weight: 700; font-size: .92rem; text-decoration: none; box-shadow: var(--shadow); }
+    .link-btn:hover { background: var(--accent-dim); }
+    .link-btn .ico { width: 1.05rem; height: 1.05rem; }
+
     .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s cubic-bezier(.16,1,.3,1), transform .6s cubic-bezier(.16,1,.3,1), filter .6s ease; }
     .reveal.from-left { transform: translateX(-22px); }
     .reveal.from-right { transform: translateX(22px); }
@@ -294,6 +307,19 @@
   </style>
 </head>
 <body class="style-lab layout-horizontal">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+    <symbol id="i-trend" viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M21 7v5h-5"/></symbol>
+    <symbol id="i-activity" viewBox="0 0 24 24"><path d="M3 12h4l2-6 4 12 2-6h6"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/></symbol>
+    <symbol id="i-pill" viewBox="0 0 24 24"><rect x="3.5" y="8" width="17" height="8" rx="4"/><path d="M12 8v8"/></symbol>
+    <symbol id="i-team" viewBox="0 0 24 24"><circle cx="9" cy="8.5" r="3"/><path d="M3.5 19c0-3.3 2.7-5.5 5.5-5.5s5.5 2.2 5.5 5.5"/><path d="M16 6.5a2.6 2.6 0 0 1 0 5.2"/><path d="M16.5 13.7c2.3.4 4 2.2 4 5.3"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3.5L21.5 20H2.5z"/><path d="M12 10v4"/><path d="M12 17h.01"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="6.5" height="6.5" rx="1.2"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.2"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.2"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.2"/></symbol>
+    <symbol id="i-spine" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="3.3" rx="1.2"/><rect x="9" y="8" width="6" height="3.3" rx="1.2"/><rect x="9" y="13" width="6" height="3.3" rx="1.2"/><rect x="9" y="18" width="6" height="3.3" rx="1.2"/></symbol>
+    <symbol id="i-lab" viewBox="0 0 24 24"><path d="M9 3h6"/><path d="M10 3v6.5L5.5 18a2 2 0 0 0 1.8 3h9.4a2 2 0 0 0 1.8-3L14 9.5V3"/><path d="M8 14h8"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v5.5c0 4.4-3 7.4-7 8.5-4-1.1-7-4.1-7-8.5V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path d="M14 4h6v6"/><path d="M20 4l-8.5 8.5"/><path d="M18 13.5V18a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4.5"/></symbol>
+  </defs></svg>
   <div class="progress" aria-hidden="true"></div>
 
   <main class="deck">
@@ -313,11 +339,11 @@
       <p class="eyebrow reveal">Agenda</p>
       <h2 class="reveal">今天的五條路徑</h2>
       <div class="agenda-list stagger">
-        <div class="agenda-item"><span class="agenda-num">01</span><div><h3>為何重要</h3><p>糖尿病讓骨折風險顯著上升。</p></div></div>
-        <div class="agenda-item"><span class="agenda-num">02</span><div><h3>機轉與 T1／T2 差異</h3><p>不是骨密度低，是骨品質差。</p></div></div>
-        <div class="agenda-item"><span class="agenda-num">03</span><div><h3>篩檢與診斷</h3><p>誰該做 DXA、FRAX 為何會低估。</p></div></div>
-        <div class="agenda-item"><span class="agenda-num">04</span><div><h3>治療</h3><p>非藥物地基 + 藥物選擇與接續療法。</p></div></div>
-        <div class="agenda-item"><span class="agenda-num">05</span><div><h3>血糖藥與照護體系</h3><p>選藥避雷 + 多專科整合。</p></div></div>
+        <div class="agenda-item"><span class="agenda-num">01</span><div><h3>為何重要</h3><p>糖尿病讓骨折風險顯著上升。</p></div><svg class="ico"><use href="#i-trend"/></svg></div>
+        <div class="agenda-item"><span class="agenda-num">02</span><div><h3>機轉與 T1／T2 差異</h3><p>不是骨密度低，是骨品質差。</p></div><svg class="ico"><use href="#i-activity"/></svg></div>
+        <div class="agenda-item"><span class="agenda-num">03</span><div><h3>篩檢與診斷</h3><p>誰該做 DXA、FRAX 為何會低估。</p></div><svg class="ico"><use href="#i-search"/></svg></div>
+        <div class="agenda-item"><span class="agenda-num">04</span><div><h3>治療</h3><p>非藥物地基 + 藥物選擇與接續療法。</p></div><svg class="ico"><use href="#i-pill"/></svg></div>
+        <div class="agenda-item"><span class="agenda-num">05</span><div><h3>血糖藥與照護體系</h3><p>選藥避雷 + 多專科整合。</p></div><svg class="ico"><use href="#i-team"/></svg></div>
       </div>
     </div>
   </section>
@@ -328,9 +354,9 @@
       <p class="eyebrow reveal">為何重要 · 流行病學</p>
       <h2 class="reveal">糖尿病讓骨折風險更高</h2>
       <div class="stats stagger">
-        <div class="stat-card"><span class="stat-num">7×</span><h3>T1DM 髖部骨折</h3><p>風險可增加至 7 倍；T2DM 任一部位 ↑ 1.7 倍。</p></div>
-        <div class="stat-card"><span class="stat-num">34.2</span><h3>台灣 T2DM 骨鬆／千人年</h3><p>高於非糖尿病族群的 20.6。</p></div>
-        <div class="stat-card"><span class="stat-num">31<small>%</small></span><h3>曾接受骨骼評估</h3><p>多數糖尿病患從未被評估骨骼健康。</p></div>
+        <div class="stat-card"><svg class="ico"><use href="#i-trend"/></svg><span class="stat-num">7×</span><h3>T1DM 髖部骨折</h3><p>風險可增加至 7 倍；T2DM 任一部位 ↑ 1.7 倍。</p></div>
+        <div class="stat-card"><svg class="ico"><use href="#i-activity"/></svg><span class="stat-num">34.2</span><h3>台灣 T2DM 骨鬆／千人年</h3><p>高於非糖尿病族群的 20.6。</p></div>
+        <div class="stat-card"><svg class="ico"><use href="#i-search"/></svg><span class="stat-num">31<small>%</small></span><h3>曾接受骨骼評估</h3><p>多數糖尿病患從未被評估骨骼健康。</p></div>
       </div>
       <p class="src reveal">資料來源：共識聲明 p.2、p.5、p.19</p>
     </div>
@@ -423,11 +449,11 @@
       <p class="eyebrow reveal">診斷與風險評估</p>
       <h2 class="reveal">五項工具，補上 BMD 的盲點</h2>
       <div class="grid stagger">
-        <div class="card"><h3>DXA</h3><p>骨鬆診斷黃金標準：T 值 ≤ -2.5。</p></div>
-        <div class="card is-warn"><h3>⚠️ FRAX 陷阱</h3><p>會「低估」糖尿病骨折風險。T2DM 可校正：T 值下調 0.5、年齡 +10，或以 RA 代入。</p></div>
-        <div class="card"><h3>TBS 骨小樑指數</h3><p>反映腰椎骨微結構，納入後比單用 BMD 更準（&gt; 1.31 正常）。</p></div>
-        <div class="card"><h3>VFA 側面脊椎影像</h3><p>揪出常無症狀的脊椎骨折，影響風險分級與起始治療。</p></div>
-        <div class="card"><h3>BTM 骨代謝標記</h3><p>治療後 3–6 個月追蹤反應；不適合單獨當風險預測。</p></div>
+        <div class="card"><div class="icon-badge"><svg class="ico"><use href="#i-activity"/></svg></div><h3>DXA</h3><p>骨鬆診斷黃金標準：T 值 ≤ -2.5。</p></div>
+        <div class="card is-warn"><div class="icon-badge warn"><svg class="ico"><use href="#i-alert"/></svg></div><h3>FRAX 陷阱</h3><p>會「低估」糖尿病骨折風險。T2DM 可校正：T 值下調 0.5、年齡 +10，或以 RA 代入。</p></div>
+        <div class="card"><div class="icon-badge"><svg class="ico"><use href="#i-grid"/></svg></div><h3>TBS 骨小樑指數</h3><p>反映腰椎骨微結構，納入後比單用 BMD 更準（&gt; 1.31 正常）。</p></div>
+        <div class="card"><div class="icon-badge"><svg class="ico"><use href="#i-spine"/></svg></div><h3>VFA 側面脊椎影像</h3><p>揪出常無症狀的脊椎骨折，影響風險分級與起始治療。</p></div>
+        <div class="card"><div class="icon-badge"><svg class="ico"><use href="#i-lab"/></svg></div><h3>BTM 骨代謝標記</h3><p>治療後 3–6 個月追蹤反應；不適合單獨當風險預測。</p></div>
       </div>
     </div>
   </section>
@@ -503,7 +529,7 @@
       <h2 class="reveal">降血糖藥對骨骼：怎麼選？</h2>
       <div class="compare-grid reveal">
         <div class="panel pick">
-          <h3>✅ 對骨骼安全</h3>
+          <h3><svg class="icon-inline" style="color:var(--accent)"><use href="#i-shield"/></svg> 對骨骼安全</h3>
           <p class="essence">中性或偏有益，可安心使用</p>
           <ul>
             <li>Metformin</li>
@@ -513,7 +539,7 @@
           </ul>
         </div>
         <div class="panel flag">
-          <h3>⚠️ 升高骨折風險</h3>
+          <h3><svg class="icon-inline" style="color:var(--warn)"><use href="#i-alert"/></svg> 升高骨折風險</h3>
           <p class="essence">骨鬆高風險病人要小心</p>
           <dl class="kv">
             <dt>TZD</dt><dd>直接降骨密度、增骨折（OR 2.23）</dd>
@@ -548,11 +574,18 @@
       <p class="eyebrow reveal">Take-home</p>
       <h2 class="reveal from-blur">把骨鬆變成糖尿病的<span class="accent">常規照護</span></h2>
       <div class="take-grid stagger">
-        <div class="card"><h3>主動篩</h3><p>BMD 正常 ≠ 低風險，FRAX 會低估 → 加上 TBS／VFA。</p></div>
-        <div class="card"><h3>治療有序</h3><p>極高風險先用促骨生成劑、再接續抗吸收；避開 TZD、慎用 SU。</p></div>
-        <div class="card"><h3>團隊照護</h3><p>內分泌 + 骨科 + 衛教師 + 營養，把骨骼健康納入 DSME。</p></div>
+        <div class="card"><div class="icon-badge"><svg class="ico"><use href="#i-search"/></svg></div><h3>主動篩</h3><p>BMD 正常 ≠ 低風險，FRAX 會低估 → 加上 TBS／VFA。</p></div>
+        <div class="card"><div class="icon-badge"><svg class="ico"><use href="#i-pill"/></svg></div><h3>治療有序</h3><p>極高風險先用促骨生成劑、再接續抗吸收；避開 TZD、慎用 SU。</p></div>
+        <div class="card"><div class="icon-badge"><svg class="ico"><use href="#i-team"/></svg></div><h3>團隊照護</h3><p>內分泌 + 骨科 + 衛教師 + 營養，把骨骼健康納入 DSME。</p></div>
       </div>
-      <p class="src reveal">《糖尿病患者骨質疏鬆照護共識》初版 2026.03 ｜ tade.org.tw</p>
+      <div class="reveal" style="display:grid;gap:.6rem;">
+        <div class="link-row">
+          <a class="link-btn" href="https://www.tade.org.tw/" target="_blank" rel="noopener">糖尿病衛教學會<svg class="ico"><use href="#i-link"/></svg></a>
+          <a class="link-btn" href="https://www.toa1997.org.tw/" target="_blank" rel="noopener">骨質疏鬆症學會<svg class="ico"><use href="#i-link"/></svg></a>
+          <a class="link-btn" href="http://www.endo-dm.org.tw/endo/" target="_blank" rel="noopener">內分泌學會<svg class="ico"><use href="#i-link"/></svg></a>
+        </div>
+        <p class="src">資料來源：《糖尿病患者骨質疏鬆照護共識》初版 2026.03（台灣糖尿病衛教學會 × 骨質疏鬆症學會 × 內分泌學會）</p>
+      </div>
     </div>
   </section>
 
